@@ -2,7 +2,8 @@ import {useContext, useRef} from 'react';
 import logo from '../assets/logo.jpg';
 import Button from './UI/Button';
 import {CartContext} from '../store/CartContext';
-import CartModal from './CartModal';
+import Modal from './Modal';
+import Cart from './Cart';
 
 export default function Header () {
     const dialog = useRef();
@@ -13,7 +14,7 @@ export default function Header () {
     }
     return (
         <>
-            <CartModal ref={dialog} />
+            <Modal ref={dialog} ModalComponent={Cart} buttonText="Go to Checkout" />
             <header id="main-header">
                 <div id='title'>
                     <img src={logo} alt="dishes" />
