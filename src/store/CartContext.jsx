@@ -3,7 +3,7 @@ import {createContext, useReducer} from "react";
 export const CartContext = createContext({
     items: [],
     addItemToCart: (name, price, id) => {},
-    updateItemQuantity: () => {},
+    updateItemQuantity: (id, quantity) => {},
 });
 
 function shoppingCartReducer (state, action) {
@@ -32,6 +32,29 @@ function shoppingCartReducer (state, action) {
             items: updatedItems
         };
     }
+
+    if (action.type === 'UPDATE_ITEM') {
+        const updatedItems = [...state.items];
+        const updatedItemIndex = updatedItems.findIndex(
+            (item) => item.id === action.payload.id
+        );
+
+        const updatedItem = {
+            ...updatedItems[updatedItemIndex],
+        };
+
+        updatedItem.quantity += action.payload.quantity;
+
+        if (updatedItem.quantity <= 0) {
+            updatedItems.splice(updatedItemIndex, 1);
+        } else {
+            updatedItems[updatedItemIndex] = updatedItem;
+        }
+
+        return {
+            items: updatedItems,
+        };
+    }
     return state;
 }
 
@@ -49,9 +72,20 @@ export default function CartContextProvider ({children}) {
         });
     }
 
+    function handleUpdateCartItemQuantity (id, quantity) {
+        shoppingCartDispatch({
+            type: 'UPDATE_ITEM',
+            payload: {
+                id,
+                quantity
+            }
+        });
+    }
+
     const ctxValue = {
         items: shoppingCart.items,
-        addItemToCart: handleAddItemToCart
+        addItemToCart: handleAddItemToCart,
+        updateItemQuantity: handleUpdateCartItemQuantity
     };
 
     return <CartContext.Provider value={ctxValue}>{children}</CartContext.Provider>;
