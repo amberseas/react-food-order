@@ -1,8 +1,7 @@
 import {useRef, useImperativeHandle} from "react";
 import {createPortal} from "react-dom";
-import Button from "./UI/Button";
 
-export default function Modal ({ref, ModalComponent, buttonText}) {
+export default function Modal ({ref, ModalComponent, actions}) {
     const dialog = useRef();
 
     useImperativeHandle(ref, () => {
@@ -17,8 +16,7 @@ export default function Modal ({ref, ModalComponent, buttonText}) {
         <dialog ref={dialog} className="modal">
             <ModalComponent />
             <form className="modal-actions" method="dialog">
-                <Button text={true}>Close</Button>
-                <Button>{buttonText}</Button>
+                {actions}
             </form>
         </dialog>,
         document.getElementById('modal')

@@ -1,7 +1,7 @@
-import {useContext, useRef} from 'react';
 import logo from '../assets/logo.jpg';
-import Button from './UI/Button';
+import {useContext, useRef} from 'react';
 import {CartContext} from '../store/CartContext';
+import Button from './UI/Button';
 import Modal from './Modal';
 import Cart from './Cart';
 
@@ -12,9 +12,20 @@ export default function Header () {
     function handleOpenCart () {
         dialog.current.open();
     }
+
+    let cartModalActions = <Button text={true}>Close</Button>;
+    if (totalQuantity > 0) {
+        cartModalActions = (
+            <>
+                <Button text={true}>Close</Button>
+                <Button>Go to Checkout</Button>
+            </>
+        );
+    }
+
     return (
         <>
-            <Modal ref={dialog} ModalComponent={Cart} buttonText="Go to Checkout" />
+            <Modal ref={dialog} ModalComponent={Cart} actions={cartModalActions} />
             <header id="main-header">
                 <div id='title'>
                     <img src={logo} alt="dishes" />
