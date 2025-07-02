@@ -1,9 +1,18 @@
-import {useContext} from "react";
+import {useContext, useState} from "react";
 import Button from "./UI/Button";
 import {CartContext} from "../store/CartContext";
 
 export default function MealItem ({id, name, img, price, description}) {
     const {items, addItemToCart} = useContext(CartContext);
+    const [justAdded, setJustAdded] = useState(false);
+
+    function handleAddToCart () {
+        addItemToCart(name, price, id);
+        setJustAdded(true);
+        setTimeout(() => {
+            setJustAdded(false);
+        }, 2000);
+    }
 
     return (
         <div className="meal-item">
@@ -15,7 +24,7 @@ export default function MealItem ({id, name, img, price, description}) {
                     <p className="meal-item-description">{description}</p>
                 </div>
                 <div className='meal-item-actions'>
-                    <Button onClick={() => addItemToCart(name, price, id)}>Add To Cart</Button>
+                    <Button onClick={handleAddToCart} disabled={justAdded}>{justAdded ? 'Item added!' : 'Add To Cart'}</Button>
                 </div>
             </article>
         </div>

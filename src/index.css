@@ -221,6 +221,10 @@ h1 {
   color: #1f1a09;
 }
 
+.button:disabled {
+  cursor: progress;
+}
+
 .text-button {
   font: inherit;
   cursor: pointer;
