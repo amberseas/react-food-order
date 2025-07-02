@@ -15,8 +15,10 @@ export default function Modal ({ref, ModalComponent, actions}) {
     return createPortal(
         <dialog ref={dialog} className="modal">
             <ModalComponent />
-            <form className="modal-actions" method="dialog">
-                {actions}
+            <form method="dialog">
+                <p className="modal-actions">
+                    {actions}
+                </p>
             </form>
         </dialog>,
         document.getElementById('modal')

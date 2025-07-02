@@ -23,9 +23,9 @@ export default function MealItem ({id, name, img, price, description}) {
                     <p className="meal-item-price">${price}</p>
                     <p className="meal-item-description">{description}</p>
                 </div>
-                <div className='meal-item-actions'>
+                <p className='meal-item-actions'>
                     <Button onClick={handleAddToCart} disabled={justAdded}>{justAdded ? 'Item added!' : 'Add To Cart'}</Button>
-                </div>
+                </p>
             </article>
         </div>
     );
