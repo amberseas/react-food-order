@@ -17,6 +17,7 @@ export default function Meals () {
             {meals.map(meal => {
                 return <MealItem
                     key={meal.id}
+                    id={meal.id}
                     name={meal.name}
                     img={meal.image}
                     price={meal.price}
