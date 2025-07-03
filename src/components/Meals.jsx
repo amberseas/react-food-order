@@ -13,17 +13,13 @@ export default function Meals () {
     }, []);
 
     return (
-        <div id="meals">
+        <ul id="meals">
             {meals.map(meal => {
                 return <MealItem
                     key={meal.id}
-                    id={meal.id}
-                    name={meal.name}
-                    img={meal.image}
-                    price={meal.price}
-                    description={meal.description}
+                    meal={meal}
                 />;
             })}
-        </div>
+        </ul>
     );
 }

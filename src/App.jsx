@@ -9,7 +9,6 @@ function App () {
     <CartContextProvider>
       <Header />
       <Meals />
-      <CheckoutForm />
     </CartContextProvider>
   );
 }
