@@ -2,13 +2,15 @@ import logo from '../assets/logo.jpg';
 import {useContext, useRef} from 'react';
 import {CartContext} from '../store/CartContext';
 import Button from './UI/Button';
-import Modal from './Modal';
-import Cart from './Cart';
-import CheckoutForm from './CheckoutForm';
+import Modal from './modals/Modal';
+import Cart from './modals/Cart';
+import CheckoutForm from './modals/CheckoutForm';
+import Success from './modals/Success';
 
 export default function Header () {
     const cartDialog = useRef();
     const checkoutDialog = useRef();
+    const successDialog = useRef();
     const {items} = useContext(CartContext);
     const totalQuantity = items.reduce((total, item) => total + item.quantity, 0);
 
@@ -18,6 +20,10 @@ export default function Header () {
 
     function handleGoToCheckout () {
         checkoutDialog.current.open();
+    }
+
+    function handleOrderSuccess () {
+        successDialog.current.open();
     }
 
     const closeBtn = <Button text={true}>Close</Button>;
@@ -33,14 +39,16 @@ export default function Header () {
     let checkoutModalActions = (
         <>
             {closeBtn}
-            <Button>Submit Order</Button>
+            <Button onClick={handleOrderSuccess}>Submit Order</Button>
         </>
     );
+    let successActions = <Button>Okay</Button>;
 
     return (
         <>
             <Modal ref={cartDialog} ModalComponent={Cart} actions={cartModalActions} />
             <Modal ref={checkoutDialog} ModalComponent={CheckoutForm} actions={checkoutModalActions} />
+            <Modal ref={successDialog} ModalComponent={Success} actions={successActions} />
             <header id="main-header">
                 <div id='title'>
                     <img src={logo} alt="dishes" />

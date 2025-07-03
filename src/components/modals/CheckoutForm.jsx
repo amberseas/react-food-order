@@ -1,4 +1,4 @@
-import Input from "./UI/Input";
+import Input from "../UI/Input";
 
 export default function CheckoutForm () {
     return (
