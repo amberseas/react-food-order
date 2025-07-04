@@ -23,10 +23,12 @@ app.get('/meals', async (req, res) => {
 app.post('/orders', async (req, res) => {
   const orderData = req.body.order;
 
-  if (orderData === null || orderData.items === null || orderData.items.length === 0) {
-    return res
-      .status(400)
-      .json({ message: 'Missing data.' });
+  if (
+    orderData === null ||
+    orderData.items === null ||
+    orderData.items.length === 0
+  ) {
+    return res.status(400).json({ message: 'Missing data.' });
   }
 
   if (
@@ -36,8 +38,8 @@ app.post('/orders', async (req, res) => {
     orderData.customer.name.trim() === '' ||
     orderData.customer.street === null ||
     orderData.customer.street.trim() === '' ||
-    orderData.customer['postal-code'] === null ||
-    orderData.customer['postal-code'].trim() === '' ||
+    orderData.customer.postal === null ||
+    orderData.customer.postal.trim() === '' ||
     orderData.customer.city === null ||
     orderData.customer.city.trim() === ''
   ) {

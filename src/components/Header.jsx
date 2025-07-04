@@ -2,7 +2,6 @@ import logo from '../assets/logo.jpg';
 import {useContext, useRef} from 'react';
 import {CartContext} from '../store/CartContext';
 import Button from './UI/Button';
-import Modal from './UI/Modal';
 import Cart from './modals/Cart';
 import CheckoutForm from './modals/CheckoutForm';
 import Success from './modals/Success';
