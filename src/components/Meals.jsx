@@ -3,20 +3,11 @@ import MealItem from "./MealItem";
 import ErrorMessage from "./ErrorMessage";
 import {useHttp} from "../hooks/useHttp";
 
-async function loadMeals () {
-    const response = await fetch('http://localhost:3000/meals');
-    const meals = await response.json();
-
-    if (!response.ok) {
-        throw new Error('Failed to fetch meals.');
-    }
-    return meals;
-}
+const reqConfig = {};
 
 export default function Meals () {
     const errorDialog = useRef();
-    const {isFetching, error, setError, fetchedData: meals, setFetchedData: setMeals} = useHttp(loadMeals, []);
-    console.log(error);
+    const {isFetching, error, setError, fetchedData: meals, setFetchedData: setMeals} = useHttp('http://localhost:3000/meals', reqConfig, []);
     if (error) {
         errorDialog.current.open();
     }

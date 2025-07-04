@@ -1,6 +1,19 @@
 import { useState, useEffect } from 'react';
 
-export function useHttp(fetchFn, initialValue) {
+async function sendHttpRequest(url, config) {
+  const response = await fetch(url, config);
+  const resData = await response.json();
+
+  if (!response.ok) {
+    throw new Error(
+      resData.message || 'Failed to fetch data, please try again later.'
+    );
+  }
+
+  return resData;
+}
+
+export function useHttp(url, config, initialValue) {
   const [isFetching, setIsFetching] = useState();
   const [error, setError] = useState();
   const [fetchedData, setFetchedData] = useState(initialValue);
@@ -9,18 +22,19 @@ export function useHttp(fetchFn, initialValue) {
     async function fetchData() {
       setIsFetching(true);
       try {
-        const places = await fetchFn();
-        setFetchedData(places);
+        const resData = await sendHttpRequest(url, config);
+        setFetchedData(resData);
       } catch (error) {
-        setError({
-          message:
-            error.message || 'Failed to fetch data, please try again later.',
-        });
+        setError(
+          error.message || 'Failed to fetch meals, please try again later.'
+        );
       }
       setIsFetching(false);
     }
-    fetchData();
-  }, [fetchFn]);
+    if ((config && (config.method === 'GET' || !config.method)) || !config) {
+      fetchData();
+    }
+  }, [url, config]);
 
   return {
     isFetching,
@@ -28,5 +42,6 @@ export function useHttp(fetchFn, initialValue) {
     setFetchedData,
     error,
     setError,
+    fetchedData,
   };
 }
