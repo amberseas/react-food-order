@@ -29,6 +29,7 @@ function shoppingCartReducer (state, action) {
         }
 
         return {
+            ...state,
             items: updatedItems
         };
     }
@@ -52,6 +53,7 @@ function shoppingCartReducer (state, action) {
         }
 
         return {
+            ...state,
             items: updatedItems,
         };
     }

@@ -8,7 +8,7 @@ export default function MealItem ({meal}) {
     const [justAdded, setJustAdded] = useState(false);
 
     function handleAddToCart () {
-        addItemToCart(name, price, id);
+        addItemToCart(meal.name, meal.price, meal.id);
         setJustAdded(true);
         setTimeout(() => {
             setJustAdded(false);
