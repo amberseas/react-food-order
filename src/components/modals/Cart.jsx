@@ -1,8 +1,8 @@
+import {currencyFormatter} from '../../utils/formatting.js';
 import {useContext} from "react";
 import {CartContext} from "../../store/CartContext";
 import Button from "../UI/Button";
 import Modal from "../UI/Modal";
-import {currencyFormatter} from '../../utils/formatting.js';
 import CartItem from "./CartItem.jsx";
 
 export default function Cart ({ref, onCheckout}) {
@@ -12,7 +12,7 @@ export default function Cart ({ref, onCheckout}) {
     return (
         <Modal ref={ref} className="cart">
             <h2>Your Cart</h2>
-            <ul>{items.map(item => (<CartItem item={item} updateItemQuantity={updateItemQuantity} />))}
+            <ul>{items.map(item => (<CartItem key={item.id} item={item} updateItemQuantity={updateItemQuantity} />))}
             </ul>
             <p className="cart-total">{currencyFormatter.format(totalSum)}</p>
             <form method="dialog">

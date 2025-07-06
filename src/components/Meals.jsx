@@ -1,26 +1,23 @@
-import {useRef} from "react";
+import {useHttp} from "../hooks/useHttp";
 import MealItem from "./MealItem";
 import ErrorMessage from "./ErrorMessage";
-import {useHttp} from "../hooks/useHttp";
 
 const reqConfig = {};
 
 export default function Meals () {
-    const errorDialog = useRef();
-    const {isFetching, error, setError, fetchedData: meals, setFetchedData: setMeals} = useHttp('http://localhost:3000/meals', reqConfig, []);
-    if (error) {
-        errorDialog.current.open();
-    }
+    const {
+        isFetching,
+        error,
+        fetchedData: meals,
+    } = useHttp('http://localhost:3000/meals', reqConfig, []);
 
-    function handleError () {
-        errorDialog.current.close();
-        setMeals([]);
-        setError(null);
+    if (error) {
+        console.log(error);
+        return <ErrorMessage title="Something went wrong..." message={error} />;
     }
 
     return (
         <>
-            <ErrorMessage ref={errorDialog} title='Something went wrong' message={error ? error.message : ''} onConfirm={handleError} />
             {isFetching && <p className="center">Loading...</p>}
             <ul id="meals">
                 {meals.map(meal => {

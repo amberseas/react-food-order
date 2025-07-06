@@ -4,12 +4,10 @@ import {CartContext} from '../store/CartContext';
 import Button from './UI/Button';
 import Cart from './modals/Cart';
 import CheckoutForm from './modals/CheckoutForm';
-import Success from './modals/Success';
 
 export default function Header () {
     const cartDialog = useRef();
     const checkoutDialog = useRef();
-    const successDialog = useRef();
     const {items} = useContext(CartContext);
     const totalQuantity = items.reduce((total, item) => total + item.quantity, 0);
 
@@ -22,11 +20,6 @@ export default function Header () {
         checkoutDialog.current.open();
     }
 
-    function handleOrderSuccess () {
-        checkoutDialog.current.close();
-        successDialog.current.open();
-    }
-
     function handleCloseForm () {
         checkoutDialog.current.close();
     }
@@ -34,8 +27,7 @@ export default function Header () {
     return (
         <>
             <Cart ref={cartDialog} onCheckout={handleGoToCheckout} />
-            <CheckoutForm ref={checkoutDialog} onSubmitOrder={handleOrderSuccess} onCloseForm={handleCloseForm} />
-            <Success ref={successDialog} />
+            <CheckoutForm ref={checkoutDialog} onCloseForm={handleCloseForm} />
             <header id="main-header">
                 <div id='title'>
                     <img src={logo} alt="dishes" />

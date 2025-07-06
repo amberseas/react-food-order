@@ -1,14 +1,8 @@
-import Modal from "./UI/Modal";
-import Button from "./UI/Button";
-
-export default function ErrorMessage ({ref, title, message, onConfirm}) {
+export default function ErrorMessage ({title, message}) {
     return (
-        <Modal ref={ref} className="error">
+        <div className="error">
             <h2>{title}</h2>
             <p>{message}</p>
-            <p className="modal-actions">
-                <Button onClick={onConfirm} text>Okay</Button>
-            </p>
-        </Modal>
+        </div>
     );
 }
